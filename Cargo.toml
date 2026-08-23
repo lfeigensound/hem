@@ -37,6 +37,7 @@ ordered-float = "5.3.0"
 parking_lot = { version = "0.12.5", features = ["hardware-lock-elision"] }
 petgraph = "0.8.3"
 polyfit-rs = "0.2.2"
+reqwest = { version = "0.12", features = ["json"], optional = true }
 serde = { version = "1.0.228", features = ["derive", "rc"] }
 serde-enum-str = "0.5.0"
 serde_json = { version = "1.0.150", features = ["preserve_order"] }
@@ -45,6 +46,7 @@ serde_with = { version = "3.21.0", features = ["json", "macros"] }
 serde_valid = "2.0.1"
 smartstring = { version = "1.0.1", features = ["arbitrary", "serde"] }
 thiserror = "2.0.18"
+tokio = { version = "1", features = ["macros", "rt"], optional = true }
 tracing = "0.1.44"
 tracing-subscriber = "0.3.22"
 
@@ -52,6 +54,7 @@ tracing-subscriber = "0.3.22"
 pretty_assertions = "1.4.1"
 rayon = "1.12.0"
 rstest = "0.26.1"
+tokio = { version = "1", features = ["macros", "rt-multi-thread"] }
 walkdir = "2.5.0"
 
 [lib]
@@ -63,6 +66,14 @@ name = "hem"
 path = "src/main.rs"
 doc = false
 required-features = ["clap"]
+
+[[example]]
+name = "fetch-epc-data"
+path = "examples/fetch-epc-data.rs"
+required-features = ["epc-fetcher"]
+
+[features]
+epc-fetcher = ["reqwest", "tokio"]
 
 [profile.release]
 opt-level = 3
